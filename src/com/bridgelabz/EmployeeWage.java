@@ -3,21 +3,23 @@ package com.bridgelabz;
 public class EmployeeWage {
     static int finalWage = 0;
     static int finalWorkHours = 0;
-    public static final int IS_FULL_TIME = 1;
-    public static final int IS_PART_TIME = 2;
-    public static void main(String[] args)
-    {
-        System.out.println("Welcome to the Employee Wage Program");
-        int EMP_RATE_PER_HOUR = 20;
-        int FULL_DAY_WORK_HOUR = 8;
-        int PART_TIME_WORK_HOUR = 4;
-        int totalWorkingDaysInMonth = 20;
+    static final int IS_FULL_TIME = 1;
+    static final int IS_PART_TIME = 2;
+    static int EMP_RATE_PER_HOUR = 20;
+    static int FULL_DAY_WORK_HOUR = 8;
+    static int PART_TIME_WORK_HOUR = 4;
+    static int totalWorkingDaysInMonth = 20;
+
+    static int checkEmpAttendence(){
+        int empCheck = (int)Math.floor(Math.random()*10)%3;
+        return empCheck;
+    }
+    public static int computeEmpWageMethod(){
         int empHrs = 0;
         int totalWage = 0;
-
         for(int i= 0; i < totalWorkingDaysInMonth ; i++){
-            int empCheck = (int)Math.floor(Math.random()*10)%3;
-            switch (empCheck) {
+            int empCheckCopy = checkEmpAttendence();
+            switch (empCheckCopy) {
                 case IS_FULL_TIME:
                     System.out.println("Employee is Full time present");
                     totalWage = EMP_RATE_PER_HOUR * FULL_DAY_WORK_HOUR;
@@ -38,10 +40,10 @@ public class EmployeeWage {
                     break;
             }
             finalWage = finalWage + totalWage;
-            System.out.println("Final  Wage : " + finalWage);
 
             finalWorkHours = finalWorkHours + empHrs;
-            System.out.println("Final works hours : " + finalWorkHours);
+
+            System.out.println("Day - > "+ i + " : Final Wage -> "+ finalWage + " : Workinghrs -> " + finalWorkHours);
 
             if(finalWorkHours == 100) // MAX_HRS_IN_MONTH =  100;
             {
@@ -56,6 +58,12 @@ public class EmployeeWage {
                 System.out.println("Final work hours = " + finalWorkHours);
             }
         }
-        System.out.println("Final Wage = " + finalWage);
+        return finalWage;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Employee Wage Program");
+        int totalWage = computeEmpWageMethod();
+        System.out.println("Total wage = " + totalWage);
     }
 }
